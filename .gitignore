@@ -1,0 +1,7 @@
+.DS_Store
+iso/
+packer_cache/
+packer_virtualbox-iso_virtualbox.box
+provisioned
+output-virtualbox-iso/
+TODO.txt

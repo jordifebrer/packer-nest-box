@@ -1,0 +1,39 @@
+install
+text
+cdrom
+lang en_US.UTF-8
+keyboard us
+network --onboot yes --device eth0 --bootproto dhcp --noipv6 --hostname centos-6.6
+rootpw packer
+firewall --disabled
+authconfig --enableshadow --passalgo=sha512
+selinux --disabled
+timezone --utc Europe/London
+zerombr
+clearpart --all
+part /boot --fstype=ext4 --size=512
+part pv.01 --grow --size=1
+volgroup vg_centos --pesize=4096 pv.01
+logvol swap --name=lv_swap --vgname=vg_centos --size=1024
+logvol / --fstype=ext4 --name=lv_root --vgname=vg_centos --grow --size=1
+bootloader --location=mbr --append="crashkernel=auto rhgb quiet"
+user --name=packer --groups=wheel --password=packer
+reboot
+
+%packages --nobase
+@core
+%end
+
+%post --nochroot
+cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+%end
+
+%post
+/usr/bin/yum -y install sudo
+/bin/cat << EOF > /etc/sudoers.d/wheel
+Defaults:%wheel env_keep += "SSH_AUTH_SOCK"
+Defaults:%wheel !requiretty
+%wheel ALL=(ALL) NOPASSWD: ALL
+EOF
+/bin/chmod 0440 /etc/sudoers.d/wheel
+%end

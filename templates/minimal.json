@@ -1,0 +1,26 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "RedHat_64",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "eb3c8be6ab668e6d83a118323a789e6c",
+    "iso_url": "iso/CentOS-6.6-x86_64-minimal.iso",
+    "ssh_username": "packer",
+    "ssh_password": "packer",
+    "shutdown_command": "sudo -S shutdown -P now",
+    "http_directory": "http",
+    "boot_command": [
+      "<wait><esc><esc>",
+      "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/bootstrap<enter>"
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'packer'|sudo -S sh '{{.Path}}'",
+    "scripts": [
+      "scripts/setup_basic.sh",
+      "scripts/setup_python.sh",
+      "scripts/setup_mongo.sh"
+    ]
+  }]
+}
