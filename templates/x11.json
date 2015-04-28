@@ -21,6 +21,7 @@
       "scripts/setup_basic.sh",
       "scripts/setup_python.sh",
       "scripts/setup_mongo.sh",
+      "scripts/setup_perltk.sh",
       "scripts/setup_x11.sh"
     ]
   }]
