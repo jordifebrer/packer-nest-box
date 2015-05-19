@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "scripts": "scripts/basic.sh"
+  },
   "builders": [{
     "type": "virtualbox-iso",
     "guest_os_type": "RedHat_64",
@@ -17,12 +20,6 @@
   "provisioners": [{
     "type": "shell",
     "execute_command": "echo 'packer'|sudo -S sh '{{.Path}}'",
-    "scripts": [
-      "scripts/setup_basic.sh",
-      "scripts/setup_python.sh",
-      "scripts/setup_mongo.sh",
-      "scripts/setup_perltk.sh",
-      "scripts/setup_x11.sh"
-    ]
+    "scripts": "{{user `scripts`}}"
   }]
 }

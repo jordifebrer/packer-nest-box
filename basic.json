@@ -1,0 +1,3 @@
+{
+	"setup_scripts": "scripts/setup_basic.sh,scripts/setup_java.sh"
+}
