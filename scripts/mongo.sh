@@ -10,3 +10,5 @@ enabled=1
 EOF
 
 yum install -y mongodb-org
+
+mkdir -p /data/db
