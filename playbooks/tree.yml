@@ -1,0 +1,8 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: yes
+  tasks:
+
+    - name: 1. install tree
+      yum: name=tree state=present
