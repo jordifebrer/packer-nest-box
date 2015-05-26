@@ -1,0 +1,14 @@
+{
+  "variables": {
+    "playbooks": "playbooks/tree.yml"
+  },
+  "builders": [{
+    "type": "docker",
+    "image": "centos:centos6.6",
+    "export_path": "centos-test.tar"
+  }],
+  "provisioners": [{
+    "type": "ansible-local",
+    "playbook_file": "{{user `playbooks`}}"
+  }]
+}
